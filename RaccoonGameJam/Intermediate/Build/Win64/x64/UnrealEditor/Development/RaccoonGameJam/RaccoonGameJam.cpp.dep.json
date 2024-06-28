@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\bites\\desktop\\unreal projects\\raccoongamejam\\raccoongamejam\\source\\raccoongamejam\\raccoongamejam.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\bites\\desktop\\unreal projects\\raccoongamejam\\raccoongamejam\\intermediate\\build\\win64\\x64\\raccoongamejameditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\bites\\desktop\\unreal projects\\raccoongamejam\\raccoongamejam\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\raccoongamejam\\definitions.raccoongamejam.h",
+            "c:\\users\\bites\\desktop\\unreal projects\\raccoongamejam\\raccoongamejam\\source\\raccoongamejam\\raccoongamejam.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
