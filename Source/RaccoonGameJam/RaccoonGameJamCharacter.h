@@ -62,7 +62,9 @@ protected:
 
 	/* Called to Pickup Items */
 	void PickupItem(const FInputActionValue& Value);
-			
+	
+	/* Called when an item  is added or removed to properly keep track of player score*/
+	void ChangeSum(int val);
 
 protected:
 	// APawn interface
@@ -77,8 +79,28 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UFUNCTION() int GetTrashByIndex(int index);
+
+	UFUNCTION() void AddTrashByIndex(int index);
+	
+	UFUNCTION() void RemoveTrashByIndex(int index);
+
+	UFUNCTION() virtual void RemoveTrashByIndex(int index, int amount) ;
+
+	UFUNCTION() void ResetTrashInventory();
+
 private:
 
 	APlayerController* PlayerController;
+
+	UPROPERTY(VisibleAnywhere, category = "trashInventory", meta = (Tooltip = "the structure that holds trash to be scored or removed"))
+	TArray<int> trashInventory;
+
+	UPROPERTY(VisibleAnywhere,category = "trashInventory", meta = (Tooltip = "the value of each piece of trash in the trash inventory"))
+	TArray<float> trashValues;
+	//the sum value of all trash 
+	float trashSum;
+
+	
 };
 
