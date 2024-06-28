@@ -13,6 +13,27 @@ class ARaccoonGameJamGameMode : public AGameModeBase
 
 public:
 	ARaccoonGameJamGameMode();
+
+	virtual void BeginPlay() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GameMode", meta = (Tooltip = "Length of time in minutes for level."))
+	float TotalLevelTime = 1;
+		 
+private:
+
+	void BuildGameMode();
+
+	void WinGame();
+
+	void LoseGame();
+
+	
+
+	FTimerDelegate TimerDelegate;
+	FTimerHandle TimerDelegateHandle;
+
+	bool isGameWon;
+
 };
 
 
