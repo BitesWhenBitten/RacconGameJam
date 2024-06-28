@@ -147,3 +147,45 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 		);
 	}
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+// Trash Inventory
+
+UFUNCTION() int ARaccoonGameJamCharacter::GetTrashByIndex(int index) {
+	return trashInventory[index];
+}
+
+UFUNCTION() void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
+	if (index >= trashInventory.Num() || index < 0) {
+		return;
+	}
+	trashInventory[index]++;
+	trashSum += trashValues[index];
+}
+
+UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
+	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0]) {
+		return;
+
+	}
+	trashInventory[index]--;
+	trashSum -= trashValues[index];
+}
+
+UFUNCTION() void ARaccoonGameJamCharacter::ResetTrashInventory() {
+
+	for (int num : trashInventory) {
+		num = 0;
+	}
+	trashSum = 0;
+}
+
+UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index, int amount) {
+	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0] || trashInventory[index] < amount) {
+		return;
+
+	}
+	trashInventory[index] -= amount;
+	trashSum -= (trashValues[index] * amount);
+}
