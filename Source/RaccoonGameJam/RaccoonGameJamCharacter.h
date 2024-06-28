@@ -44,6 +44,10 @@ class ARaccoonGameJamCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* LookAction;
 
+	/** Look Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* PickupItemAction;
+
 public:
 	ARaccoonGameJamCharacter();
 	
@@ -55,6 +59,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
+
+	/* Called to Pickup Items */
+	void PickupItem(const FInputActionValue& Value);
 			
 
 protected:

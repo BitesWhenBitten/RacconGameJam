@@ -88,6 +88,10 @@ void ARaccoonGameJamCharacter::SetupPlayerInputComponent(UInputComponent* Player
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARaccoonGameJamCharacter::Look);
+	
+		// Pickup items
+		EnhancedInputComponent->BindAction(PickupItemAction, ETriggerEvent::Triggered, this, &ARaccoonGameJamCharacter::PickupItem);
+
 	}
 	else
 	{
@@ -128,5 +132,18 @@ void ARaccoonGameJamCharacter::Look(const FInputActionValue& Value)
 		// add yaw and pitch input to controller
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);		
+	}
+}
+
+void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			5.0f,
+			FColor::Cyan,
+			FString::Printf(TEXT("Pickup Item Action hit!"))
+		);
 	}
 }
