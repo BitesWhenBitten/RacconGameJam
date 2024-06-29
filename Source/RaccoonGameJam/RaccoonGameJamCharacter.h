@@ -88,10 +88,9 @@ public:
 
 private:
 
-
 	UFUNCTION(BlueprintCallable) void SelectTrash(UObject* trash);
 
-	UFUNCTION(BlueprintCallable) void DeSelectTrash(UObject* trash);
+	UFUNCTION(BlueprintCallable) void DeSelectTrash(UObject* trash, bool fromCollision);
 
 	APlayerController* PlayerController;
 

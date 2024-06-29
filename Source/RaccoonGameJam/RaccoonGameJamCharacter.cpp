@@ -51,6 +51,9 @@ ARaccoonGameJamCharacter::ARaccoonGameJamCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+
+	selectedTrash = NULL;
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -146,6 +149,10 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 			FString::Printf(TEXT("Pickup Item Action hit!"))
 		);
 	}
+	//addTrashByIndex(getIndex)
+	//destroy item
+	//Remove Deselect Item
+
 }
 
 
@@ -195,8 +202,8 @@ void ARaccoonGameJamCharacter::SelectTrash(UObject* trash) {
 	selectedTrash = trash;
 }
 
-void ARaccoonGameJamCharacter::DeSelectTrash(UObject* trash) {
-	//if trash is collided object
+void ARaccoonGameJamCharacter::DeSelectTrash(UObject* trash, bool fromCollision) {
+	//if trash is collided object && from collision || 
 	selectedTrash = NULL;
 }
 
