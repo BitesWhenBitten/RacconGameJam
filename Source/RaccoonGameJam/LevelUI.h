@@ -30,7 +30,8 @@ protected:
 	UPROPERTY(BlueprintReadonly)
 	float TimeRemaining;
 
-
+	UPROPERTY(BlueprintReadonly)
+	bool isGamePlaying = true;
 
 private:
 

@@ -7,7 +7,7 @@
 #include "Delegates/Delegate.h"
 #include "RaccoonGameJamGameMode.generated.h"
 
-DECLARE_DELEGATE_OneParam(FOnGameModeTimerExpired, bool, bGameWon);
+DECLARE_DELEGATE_OneParam(FOnGameModeTimerExpired, bool bGameWon);
 
 
 UCLASS(minimalapi)
@@ -20,7 +20,7 @@ public:
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "GameMode", meta = (Tooltip = "Length of time in minutes for level."))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GameMode", meta = (Tooltip = "Length of time in minutes for level."))
 	float TotalLevelTime = 1;
 
 	float GetTimeRemaining();

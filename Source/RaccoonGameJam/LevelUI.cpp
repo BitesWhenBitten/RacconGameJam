@@ -18,6 +18,7 @@ void ULevelUI::Setup()
 
 void ULevelUI::TimerExpired(bool bGameWon)
 {
+	isGamePlaying = false;
 	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(
