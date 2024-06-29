@@ -152,11 +152,11 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 //////////////////////////////////////////////////////////////////////////
 // Trash Inventory
 
-UFUNCTION() int ARaccoonGameJamCharacter::GetTrashByIndex(int index) {
+int ARaccoonGameJamCharacter::GetTrashByIndex(int index) {
 	return trashInventory[index];
 }
 
-UFUNCTION() void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
+void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
 	if (index >= trashInventory.Num() || index < 0) {
 		return;
 	}
@@ -164,7 +164,7 @@ UFUNCTION() void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
 	trashSum += trashValues[index];
 }
 
-UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
+void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
 	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0]) {
 		return;
 
@@ -173,7 +173,7 @@ UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
 	trashSum -= trashValues[index];
 }
 
-UFUNCTION() void ARaccoonGameJamCharacter::ResetTrashInventory() {
+void ARaccoonGameJamCharacter::ResetTrashInventory() {
 
 	for (int num : trashInventory) {
 		num = 0;
@@ -181,7 +181,7 @@ UFUNCTION() void ARaccoonGameJamCharacter::ResetTrashInventory() {
 	trashSum = 0;
 }
 
-UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index, int amount) {
+void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
 	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0] || trashInventory[index] < amount) {
 		return;
 
@@ -189,3 +189,14 @@ UFUNCTION() void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index, int amo
 	trashInventory[index] -= amount;
 	trashSum -= (trashValues[index] * amount);
 }
+
+void ARaccoonGameJamCharacter::SelectTrash(UObject* trash) {
+	//if trash
+	selectedTrash = trash;
+}
+
+void ARaccoonGameJamCharacter::DeSelectTrash(UObject* trash) {
+	//if trash is collided object
+	selectedTrash = NULL;
+}
+
