@@ -15,7 +15,7 @@ class RACCOONGAMEJAM_API UTrashComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UTrashComponent();
-
+	
 	UFUNCTION(BlueprintCallable) int GetIndex();
 
 
