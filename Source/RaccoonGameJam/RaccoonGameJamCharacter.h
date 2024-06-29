@@ -62,9 +62,6 @@ protected:
 
 	/* Called to Pickup Items */
 	void PickupItem(const FInputActionValue& Value);
-	
-	/* Called when an item  is added or removed to properly keep track of player score*/
-	void ChangeSum(int val);
 
 protected:
 	// APawn interface
