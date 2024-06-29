@@ -19,6 +19,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void Setup();
 
+	UFUNCTION()
+	void TimerExpired();
+
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 
 protected:

@@ -4,9 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Delegates/Delegate.h"
 #include "RaccoonGameJamGameMode.generated.h"
 
-DECLARE_DYNAMIC_DELEGATE_OneParam(FOnGameModeTimerExpired, bool, bGameWon);
+DECLARE_DELEGATE_OneParam(FOnGameModeTimerExpired, bool, bGameWon);
 
 
 UCLASS(minimalapi)

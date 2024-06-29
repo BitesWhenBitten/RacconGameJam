@@ -13,7 +13,20 @@ void ULevelUI::Setup()
 	SetVisibility(ESlateVisibility::Visible);
 
 	GameMode = Cast<ARaccoonGameJamGameMode>(GetWorld()->GetAuthGameMode());
+	GameMode->OnGameModeTimerExpired.AddDynamic(this, &ThisClass::TimerExpired);
+}
 
+void ULevelUI::TimerExpired()
+{
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			5.0f,
+			FColor::Cyan,
+			FString::Printf(TEXT("The timer expired!"))
+		);
+	}
 }
 
 void ULevelUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
