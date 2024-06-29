@@ -23,6 +23,11 @@ void ARaccoonGameJamGameMode::BeginPlay()
 
 
 
+float ARaccoonGameJamGameMode::GetTimeRemaining()
+{
+	return GetWorldTimerManager().GetTimerRemaining(TimerDelegateHandle);	
+}
+
 void ARaccoonGameJamGameMode::BuildGameMode()
 {
 	//start a timer, use variable later to be assigned from Level BPs
@@ -37,7 +42,6 @@ void ARaccoonGameJamGameMode::BuildGameMode()
 	//set the timer
 	GetWorldTimerManager().SetTimer(TimerDelegateHandle, TimerDelegate, LevelTimeInSeconds, false);
 
-
 }
 
 void ARaccoonGameJamGameMode::WinGame()
@@ -48,6 +52,8 @@ void ARaccoonGameJamGameMode::WinGame()
 	TimerDelegate.Unbind();
 
 	isGameWon = true;
+
+	OnGameModeTimerExpired.Broadcast(isGameWon);
 }
 
 void ARaccoonGameJamGameMode::LoseGame()
@@ -56,4 +62,7 @@ void ARaccoonGameJamGameMode::LoseGame()
 	TimerDelegate.Unbind();
 
 	isGameWon = false;
+
+	OnGameModeTimerExpired.Broadcast(isGameWon);
+
 }

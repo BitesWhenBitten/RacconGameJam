@@ -14,4 +14,25 @@ class RACCOONGAMEJAM_API ULevelUI : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+
+	UFUNCTION(BlueprintCallable)
+	void Setup();
+
+	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+
+protected:
+
+
+	UPROPERTY(BlueprintReadonly)
+	float TimeRemaining;
+
+
+
+private:
+
+	class ARaccoonGameJamGameMode* GameMode;
+
+
+
 };
