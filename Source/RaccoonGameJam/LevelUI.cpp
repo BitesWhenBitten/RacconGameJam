@@ -28,6 +28,8 @@ void ULevelUI::TimerExpired(bool bGameWon)
 			FString::Printf(TEXT("The timer expired!"))
 		);
 	}
+
+	GameMode->OnGameModeTimerExpired.Unbind();
 }
 
 void ULevelUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
