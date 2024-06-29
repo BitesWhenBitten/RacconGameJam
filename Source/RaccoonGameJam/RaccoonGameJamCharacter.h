@@ -88,13 +88,13 @@ public:
 
 private:
 
-	UFUNCTION(BlueprintCallable) void SelectTrash(UObject* trash);
+	UFUNCTION(BlueprintCallable) void SelectTrash(AActor* trash);
 
-	UFUNCTION(BlueprintCallable) void DeSelectTrash(UObject* trash, bool fromCollision);
+	UFUNCTION(BlueprintCallable) void DeSelectTrash(AActor* trash, bool fromCollision);
 
 	APlayerController* PlayerController;
 
-	UObject* selectedTrash;
+	AActor* selectedTrash;
 
 	UPROPERTY(EditAnywhere, category = "trashInventory", meta = (Tooltip = "the structure that holds trash to be scored or removed"))
 	TArray<int> trashInventory;

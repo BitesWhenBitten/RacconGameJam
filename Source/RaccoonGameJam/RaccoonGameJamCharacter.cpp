@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "TrashComponent.h"
 
 DEFINE_LOG_CATEGORY(LogCharacter);
 
@@ -154,7 +155,8 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 	{
 		return;
 	}
-	//AddTrashByIndex();
+	AddTrashByIndex(selectedTrash->FindComponentByClass<UTrashComponent>()->GetIndex() );
+	
 	//destroy item
 	selectedTrash->ConditionalBeginDestroy();
 	//Remove Deselect Item
@@ -204,13 +206,16 @@ void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
 	trashSum -= (trashValues[index] * amount);
 }
 
-void ARaccoonGameJamCharacter::SelectTrash(UObject* trash) {
+void ARaccoonGameJamCharacter::SelectTrash(AActor* trash) {
 	//if trash
 	selectedTrash = trash;
 }
 
-void ARaccoonGameJamCharacter::DeSelectTrash(UObject* trash, bool fromCollision) {
+void ARaccoonGameJamCharacter::DeSelectTrash(AActor* trash, bool fromCollision) {
 	//if trash is collided object && from collision || 
+	if (selectedTrash != trash && fromCollision) {
+		return;
+	}
 	selectedTrash = NULL;
 }
 
