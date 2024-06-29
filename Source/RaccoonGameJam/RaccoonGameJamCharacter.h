@@ -96,10 +96,10 @@ private:
 
 	UObject* selectedTrash;
 
-	UPROPERTY(VisibleAnywhere, category = "trashInventory", meta = (Tooltip = "the structure that holds trash to be scored or removed"))
+	UPROPERTY(EditAnywhere, category = "trashInventory", meta = (Tooltip = "the structure that holds trash to be scored or removed"))
 	TArray<int> trashInventory;
 
-	UPROPERTY(VisibleAnywhere,category = "trashInventory", meta = (Tooltip = "the value of each piece of trash in the trash inventory"))
+	UPROPERTY(EditAnywhere,category = "trashInventory", meta = (Tooltip = "the value of each piece of trash in the trash inventory"))
 	TArray<float> trashValues;
 	//the sum value of all trash 
 	float trashSum;
