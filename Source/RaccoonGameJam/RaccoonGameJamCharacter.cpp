@@ -51,6 +51,9 @@ ARaccoonGameJamCharacter::ARaccoonGameJamCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+
+
+	selectedTrash = NULL;
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
 }
@@ -146,4 +149,61 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 			FString::Printf(TEXT("Pickup Item Action hit!"))
 		);
 	}
+	//addTrashByIndex(getIndex)
+	//destroy item
+	//Remove Deselect Item
+
 }
+
+
+//////////////////////////////////////////////////////////////////////////
+// Trash Inventory
+
+int ARaccoonGameJamCharacter::GetTrashByIndex(int index) {
+	return trashInventory[index];
+}
+
+void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
+	if (index >= trashInventory.Num() || index < 0) {
+		return;
+	}
+	trashInventory[index]++;
+	trashSum += trashValues[index];
+}
+
+void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
+	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0]) {
+		return;
+
+	}
+	trashInventory[index]--;
+	trashSum -= trashValues[index];
+}
+
+void ARaccoonGameJamCharacter::ResetTrashInventory() {
+
+	for (int num : trashInventory) {
+		num = 0;
+	}
+	trashSum = 0;
+}
+
+void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
+	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0] || trashInventory[index] < amount) {
+		return;
+
+	}
+	trashInventory[index] -= amount;
+	trashSum -= (trashValues[index] * amount);
+}
+
+void ARaccoonGameJamCharacter::SelectTrash(UObject* trash) {
+	//if trash
+	selectedTrash = trash;
+}
+
+void ARaccoonGameJamCharacter::DeSelectTrash(UObject* trash, bool fromCollision) {
+	//if trash is collided object && from collision || 
+	selectedTrash = NULL;
+}
+

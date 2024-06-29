@@ -62,7 +62,6 @@ protected:
 
 	/* Called to Pickup Items */
 	void PickupItem(const FInputActionValue& Value);
-			
 
 protected:
 	// APawn interface
@@ -77,8 +76,34 @@ public:
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 
+	UFUNCTION(BlueprintCallable) int GetTrashByIndex(int index);
+
+	UFUNCTION(BlueprintCallable) void AddTrashByIndex(int index);
+	
+	UFUNCTION(BlueprintCallable) void RemoveTrashByIndex(int index);
+
+	UFUNCTION(BlueprintCallable) void RemoveMultipleTrash(int index, int amount);
+
+	UFUNCTION(BlueprintCallable) void ResetTrashInventory();
+
 private:
 
+	UFUNCTION(BlueprintCallable) void SelectTrash(UObject* trash);
+
+	UFUNCTION(BlueprintCallable) void DeSelectTrash(UObject* trash, bool fromCollision);
+
 	APlayerController* PlayerController;
+
+	UObject* selectedTrash;
+
+	UPROPERTY(VisibleAnywhere, category = "trashInventory", meta = (Tooltip = "the structure that holds trash to be scored or removed"))
+	TArray<int> trashInventory;
+
+	UPROPERTY(VisibleAnywhere,category = "trashInventory", meta = (Tooltip = "the value of each piece of trash in the trash inventory"))
+	TArray<float> trashValues;
+	//the sum value of all trash 
+	float trashSum;
+
+	
 };
 
