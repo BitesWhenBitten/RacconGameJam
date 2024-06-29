@@ -12,15 +12,57 @@ ARaccoonGameJamGameMode::ARaccoonGameJamGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
-	else {
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(
-				-1,
-				5.0f,
-				FColor::Red,
-				FString::Printf(TEXT("Could not find specified pawn at path!"))
-			);
-		}
-	}
+}
+
+void ARaccoonGameJamGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	BuildGameMode();
+
+}
+
+
+
+float ARaccoonGameJamGameMode::GetTimeRemaining()
+{
+	return GetWorldTimerManager().GetTimerRemaining(TimerDelegateHandle);	
+}
+
+void ARaccoonGameJamGameMode::BuildGameMode()
+{
+	//start a timer, use variable later to be assigned from Level BPs
+
+	//pull in Level Time from Level asset
+
+	//multiply Level time by 60 for minute conversion
+	float LevelTimeInSeconds = TotalLevelTime * 60;
+
+	TimerDelegate = FTimerDelegate::CreateUObject(this, &ARaccoonGameJamGameMode::LoseGame);
+
+	//set the timer
+	GetWorldTimerManager().SetTimer(TimerDelegateHandle, TimerDelegate, LevelTimeInSeconds, false);
+
+}
+
+void ARaccoonGameJamGameMode::WinGame()
+{
+	//clear timer
+	GetWorldTimerManager().ClearTimer(TimerDelegateHandle);
+	// unbind timer delegate
+	TimerDelegate.Unbind();
+
+	isGameWon = true;
+
+	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
+}
+
+void ARaccoonGameJamGameMode::LoseGame()
+{
+	// unbind timer delegate
+	TimerDelegate.Unbind();
+
+	isGameWon = false;
+
+	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
+
 }
