@@ -150,8 +150,15 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 		);
 	}
 	//addTrashByIndex(getIndex)
+	if (selectedTrash == NULL)
+	{
+		return;
+	}
+	//AddTrashByIndex();
 	//destroy item
+	selectedTrash->ConditionalBeginDestroy();
 	//Remove Deselect Item
+	selectedTrash = NULL;
 
 }
 
