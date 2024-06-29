@@ -37,7 +37,7 @@ void ARaccoonGameJamGameMode::BuildGameMode()
 	//multiply Level time by 60 for minute conversion
 	float LevelTimeInSeconds = TotalLevelTime * 60;
 
-	TimerDelegate = FTimerDelegate::CreateUObject(this, &ThisClass::LoseGame);
+	TimerDelegate = FTimerDelegate::CreateUObject(this, &ARaccoonGameJamGameMode::LoseGame);
 
 	//set the timer
 	GetWorldTimerManager().SetTimer(TimerDelegateHandle, TimerDelegate, LevelTimeInSeconds, false);
@@ -53,7 +53,7 @@ void ARaccoonGameJamGameMode::WinGame()
 
 	isGameWon = true;
 
-	OnGameModeTimerExpired.Broadcast(isGameWon);
+	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
 }
 
 void ARaccoonGameJamGameMode::LoseGame()
@@ -63,6 +63,6 @@ void ARaccoonGameJamGameMode::LoseGame()
 
 	isGameWon = false;
 
-	OnGameModeTimerExpired.Broadcast(isGameWon);
+	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
 
 }

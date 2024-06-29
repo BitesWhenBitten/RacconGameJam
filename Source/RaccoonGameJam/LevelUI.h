@@ -20,7 +20,7 @@ public:
 	void Setup();
 
 	UFUNCTION()
-	void TimerExpired();
+	void TimerExpired(bool bGameWon);
 
 	virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
 

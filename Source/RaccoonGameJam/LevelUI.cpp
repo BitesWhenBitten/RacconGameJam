@@ -13,10 +13,10 @@ void ULevelUI::Setup()
 	SetVisibility(ESlateVisibility::Visible);
 
 	GameMode = Cast<ARaccoonGameJamGameMode>(GetWorld()->GetAuthGameMode());
-	GameMode->OnGameModeTimerExpired.AddDynamic(this, &ThisClass::TimerExpired);
+	GameMode->OnGameModeTimerExpired.BindUObject(this, &ThisClass::TimerExpired);
 }
 
-void ULevelUI::TimerExpired()
+void ULevelUI::TimerExpired(bool bGameWon)
 {
 	if (GEngine)
 	{
