@@ -22,6 +22,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GameMode", meta = (Tooltip = "Length of time in minutes for level."))
 	float TotalLevelTime = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GameMode", meta = (Tooltip = "How much time (in seconds) should be reduced from the timer when caught."))
+	float CaughtTimeReduction;
 
 	float GetTimeRemaining();
 
@@ -29,6 +31,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void EndGame();
+
+	UFUNCTION(BlueprintCallable)
+	void CharacterCaught();
 
 private:
 

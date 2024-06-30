@@ -21,8 +21,6 @@ void ARaccoonGameJamGameMode::BeginPlay()
 
 }
 
-
-
 float ARaccoonGameJamGameMode::GetTimeRemaining()
 {
 	return GetWorldTimerManager().GetTimerRemaining(TimerDelegateHandle);	
@@ -46,6 +44,45 @@ void ARaccoonGameJamGameMode::EndGame()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Could not grab character, marking game as lost!"));
 		LoseGame();
+	}
+
+}
+
+void ARaccoonGameJamGameMode::CharacterCaught()
+{
+
+	//set temp message to screen
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			-1,
+			5.0f,
+			FColor::Emerald,
+			FString::Printf(TEXT("Caught by the po-po! Resetting..."))
+		);
+	}
+
+	//pause the timer
+	GetWorldTimerManager().PauseTimer(TimerDelegateHandle);
+
+	//move the character
+	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	AActor* PlayerStart = FindPlayerStart(PlayerController);
+	FVector StartPoint = PlayerStart->GetActorLocation();
+	PlayerController->GetCharacter()->SetActorLocation(StartPoint);
+	
+	//get the time remaining
+	float NewTime = GetWorldTimerManager().GetTimerRemaining(TimerDelegateHandle);
+	NewTime -= CaughtTimeReduction;
+
+	if (NewTime > 0)
+	{
+		//set a new timer
+		GetWorldTimerManager().SetTimer(TimerDelegateHandle, TimerDelegate, NewTime, false);
+	}
+	else
+	{
+		EndGame();
 	}
 
 }
