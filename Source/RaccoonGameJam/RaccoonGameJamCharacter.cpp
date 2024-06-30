@@ -151,10 +151,11 @@ void ARaccoonGameJamCharacter::PickupItem(const FInputActionValue& Value)
 		);
 	}
 	//addTrashByIndex(getIndex)
-	if (selectedTrash == NULL)
+	if (selectedTrash == NULL || !selectedTrash->FindComponentByClass<UTrashComponent>())
 	{
 		return;
 	}
+
 	AddTrashByIndex(selectedTrash->FindComponentByClass<UTrashComponent>()->GetIndex() );
 	
 	//destroy item
@@ -208,7 +209,10 @@ void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
 
 void ARaccoonGameJamCharacter::SelectTrash(AActor* trash) {
 	//if trash
-	selectedTrash = trash;
+	if (selectedTrash->FindComponentByClass<UTrashComponent>()) {
+		selectedTrash = trash;
+	}
+
 }
 
 void ARaccoonGameJamCharacter::DeSelectTrash(AActor* trash, bool fromCollision) {
