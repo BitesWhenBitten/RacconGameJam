@@ -86,6 +86,7 @@ public:
 
 	UFUNCTION(BlueprintCallable) void ResetTrashInventory();
 
+	void ChangeTrashIndex(int index, int amountChanged);
 private:
 
 	UFUNCTION(BlueprintCallable) void SelectTrash(AActor* trash);
