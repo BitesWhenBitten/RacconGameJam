@@ -28,6 +28,28 @@ float ARaccoonGameJamGameMode::GetTimeRemaining()
 	return GetWorldTimerManager().GetTimerRemaining(TimerDelegateHandle);	
 }
 
+void ARaccoonGameJamGameMode::EndGame()
+{
+	ARaccoonGameJamCharacter* Character = Cast<ARaccoonGameJamCharacter>(GetWorld()->GetFirstPlayerController()->GetCharacter());
+	if (Character)
+	{
+		if (Character->GetTrashSum() > 0)
+		{
+			WinGame();
+		}
+		else
+		{
+			LoseGame();
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Could not grab character, marking game as lost!"));
+		LoseGame();
+	}
+
+}
+
 void ARaccoonGameJamGameMode::BuildGameMode()
 {
 	//start a timer, use variable later to be assigned from Level BPs
@@ -53,16 +75,22 @@ void ARaccoonGameJamGameMode::WinGame()
 
 	isGameWon = true;
 
-	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
+	OnGameOver.ExecuteIfBound(isGameWon);
 }
 
 void ARaccoonGameJamGameMode::LoseGame()
 {
+	//if lose game is called earlier than timer expiration
+	if (GetWorldTimerManager().IsTimerActive(TimerDelegateHandle))
+	{
+		GetWorldTimerManager().ClearTimer(TimerDelegateHandle);
+	}
+
 	// unbind timer delegate
 	TimerDelegate.Unbind();
 
 	isGameWon = false;
 
-	OnGameModeTimerExpired.ExecuteIfBound(isGameWon);
+	OnGameOver.ExecuteIfBound(isGameWon);
 
 }

@@ -25,15 +25,19 @@ public:
 
 	float GetTimeRemaining();
 
-	FOnGameModeTimerExpired OnGameModeTimerExpired;
-		 
+	FOnGameModeTimerExpired OnGameOver;
+
+	UFUNCTION(BlueprintCallable)
+	void EndGame();
+
 private:
 
 	void BuildGameMode();
 
-	void WinGame();
+	
 
 	void LoseGame();
+	void WinGame();
 
 	
 
