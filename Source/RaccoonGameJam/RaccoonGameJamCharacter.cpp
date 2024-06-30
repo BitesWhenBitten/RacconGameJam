@@ -177,8 +177,7 @@ void ARaccoonGameJamCharacter::AddTrashByIndex(int index) {
 	if (index >= trashInventory.Num() || index < 0) {
 		return;
 	}
-	trashInventory[index]++;
-	trashSum += trashValues[index];
+	ChangeTrashIndex(index, 1);
 }
 
 void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
@@ -186,8 +185,7 @@ void ARaccoonGameJamCharacter::RemoveTrashByIndex(int index) {
 		return;
 
 	}
-	trashInventory[index]--;
-	trashSum -= trashValues[index];
+	ChangeTrashIndex(index,-1);
 }
 
 void ARaccoonGameJamCharacter::ResetTrashInventory() {
@@ -203,8 +201,7 @@ void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
 		return;
 
 	}
-	trashInventory[index] -= amount;
-	trashSum -= (trashValues[index] * amount);
+	ChangeTrashIndex(index, amount);
 }
 
 void ARaccoonGameJamCharacter::SelectTrash(AActor* trash) {
@@ -221,5 +218,10 @@ void ARaccoonGameJamCharacter::DeSelectTrash(AActor* trash, bool fromCollision) 
 		return;
 	}
 	selectedTrash = NULL;
+}
+
+void ARaccoonGameJamCharacter::ChangeTrashIndex(int index, int amountChanged) {
+	trashInventory[index] += amountChanged;
+	trashSum += (trashValues[index] * amountChanged);
 }
 
