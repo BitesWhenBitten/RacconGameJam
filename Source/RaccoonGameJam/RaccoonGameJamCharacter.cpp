@@ -188,6 +188,11 @@ void ARaccoonGameJamCharacter::ResetTrashInventory() {
 	trashSum = 0;
 }
 
+float ARaccoonGameJamCharacter::GetTrashSum()
+{
+	return trashSum;
+}
+
 void ARaccoonGameJamCharacter::RemoveMultipleTrash(int index, int amount) {
 	if (index >= trashInventory.Num() || index < 0 || trashInventory[index <= 0] || trashInventory[index] < amount) {
 		return;

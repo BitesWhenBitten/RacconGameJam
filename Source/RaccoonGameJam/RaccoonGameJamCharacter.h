@@ -86,6 +86,9 @@ public:
 
 	UFUNCTION(BlueprintCallable) void ResetTrashInventory();
 
+	UFUNCTION(BlueprintCallable)
+	float GetTrashSum();
+
 private:
 
 	UFUNCTION(BlueprintCallable) void SelectTrash(UObject* trash);
@@ -102,7 +105,7 @@ private:
 	UPROPERTY(VisibleAnywhere,category = "trashInventory", meta = (Tooltip = "the value of each piece of trash in the trash inventory"))
 	TArray<float> trashValues;
 	//the sum value of all trash 
-	float trashSum;
+	float trashSum ;
 
 	
 };
