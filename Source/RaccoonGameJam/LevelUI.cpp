@@ -51,7 +51,7 @@ bool ULevelUI::Initialize()
 
 void ULevelUI::RetryLevelButtonClicked()
 {
-	UUIFunctionLibrary::SetInputToInPlay(this);
+	UUIFunctionLibrary::SetInputToGame(this);
 	UUIFunctionLibrary::ReloadCurrentLevel(this);
 }
 
@@ -80,7 +80,7 @@ void ULevelUI::GameOver(bool bGameWon)
 
 	GameMode->OnGameOver.Unbind();
 
-	UUIFunctionLibrary::SetInputToPaused(this);
+	UUIFunctionLibrary::SetInputToUIOnly(this);
 	TurnOnButtons();
 
 	if (bGameWon)

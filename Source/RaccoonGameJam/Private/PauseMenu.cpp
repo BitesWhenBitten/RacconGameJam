@@ -4,8 +4,7 @@
 #include "PauseMenu.h"
 #include "UIFunctionLibrary.h"
 #include "Components/Button.h"
-#include "RaccoonGameJam/RaccoonGameJamGameMode.h"
-
+#include "Kismet/GameplayStatics.h"
 
 
 bool UPauseMenu::Initialize()
@@ -26,24 +25,22 @@ bool UPauseMenu::Initialize()
 
 void UPauseMenu::Setup()
 {
-	ARaccoonGameJamGameMode* GameMode = Cast<ARaccoonGameJamGameMode>(GetWorld()->GetAuthGameMode());
-	GameMode->PauseGame();
-	UUIFunctionLibrary::SetInputToPaused(this);
+	UUIFunctionLibrary::SetInputToGameAndUI(this);
+	UGameplayStatics::SetGamePaused(this, true);
 	AddToViewport();
 	SetVisibility(ESlateVisibility::Visible);
 }
 
 void UPauseMenu::CloseMenu()
 {
-	ARaccoonGameJamGameMode* GameMode = Cast<ARaccoonGameJamGameMode>(GetWorld()->GetAuthGameMode());
-	GameMode->UnPauseGame();
-	UUIFunctionLibrary::SetInputToInPlay(this);
+	UGameplayStatics::SetGamePaused(this, false);
+	UUIFunctionLibrary::SetInputToGame(this);
 	RemoveFromParent();
 }
 
 void UPauseMenu::RetryLevelButtonClicked()
 {
-	UUIFunctionLibrary::SetInputToInPlay(this);
+	UUIFunctionLibrary::SetInputToGame(this);
 	UUIFunctionLibrary::ReloadCurrentLevel(this);
 }
 

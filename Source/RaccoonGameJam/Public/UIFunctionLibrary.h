@@ -18,10 +18,14 @@ class RACCOONGAMEJAM_API UUIFunctionLibrary : public UUserWidget
 public:
 
 	UFUNCTION(BlueprintCallable)
-	static void SetInputToPaused(UUserWidget* WidgetInFocus);
+	static void SetInputToUIOnly(UUserWidget* WidgetInFocus);
+
+	UFUNCTION(BlueprintCallable)
+	static void SetInputToGameAndUI(UUserWidget* WidgetInFocus);
+
 	
 	UFUNCTION(BlueprintCallable)
-	static void SetInputToInPlay(const UObject* WorldContextObject);
+	static void SetInputToGame(const UObject* WorldContextObject);
 
 	
 	static void ReloadCurrentLevel(const UObject* WorldContextObject);

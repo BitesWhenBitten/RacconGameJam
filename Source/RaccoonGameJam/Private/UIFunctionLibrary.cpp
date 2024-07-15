@@ -7,7 +7,7 @@
 
 
 
-void UUIFunctionLibrary::SetInputToPaused(UUserWidget* WidgetInFocus)
+void UUIFunctionLibrary::SetInputToUIOnly(UUserWidget* WidgetInFocus)
 {
 	UWorld* World = WidgetInFocus->GetWorld();
 	if (World)
@@ -17,6 +17,7 @@ void UUIFunctionLibrary::SetInputToPaused(UUserWidget* WidgetInFocus)
 		{
 
 			PlayerController->PlayerInput->FlushPressedKeys();
+
 			FInputModeUIOnly InputModeUI;
 			InputModeUI.SetWidgetToFocus(WidgetInFocus->TakeWidget());
 			InputModeUI.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
@@ -26,7 +27,27 @@ void UUIFunctionLibrary::SetInputToPaused(UUserWidget* WidgetInFocus)
 	}
 }
 
-void UUIFunctionLibrary::SetInputToInPlay(const UObject* WorldContextObject)
+void UUIFunctionLibrary::SetInputToGameAndUI(UUserWidget* WidgetInFocus)
+{
+	UWorld* World = WidgetInFocus->GetWorld();
+	if (World)
+	{
+		APlayerController* PlayerController = World->GetFirstPlayerController();
+		if (PlayerController)
+		{
+
+			PlayerController->PlayerInput->FlushPressedKeys();
+			FInputModeGameAndUI InputModeGameAndUI;
+			
+			InputModeGameAndUI.SetWidgetToFocus(WidgetInFocus->TakeWidget());
+			InputModeGameAndUI.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+			PlayerController->SetInputMode(InputModeGameAndUI);
+			PlayerController->SetShowMouseCursor(true);
+		}
+	}
+}
+
+void UUIFunctionLibrary::SetInputToGame(const UObject* WorldContextObject)
 {
 	UWorld* World = WorldContextObject->GetWorld();
 	if (World)
