@@ -35,8 +35,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CharacterCaught();
 
-	void PauseGame();
-	void UnPauseGame();
+
 
 private:
 
