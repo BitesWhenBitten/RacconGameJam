@@ -93,8 +93,9 @@ void ARaccoonGameJamCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARaccoonGameJamCharacter::Look);
 	
 		// Pickup items
-		EnhancedInputComponent->BindAction(PickupItemAction, ETriggerEvent::Triggered, this, &ARaccoonGameJamCharacter::PickupItem);
+		EnhancedInputComponent->BindAction(PickupItemAction, ETriggerEvent::Started, this, &ARaccoonGameJamCharacter::PickupItem);
 
+		//EnhancedInputComponent->BindAction(PauseGameAction, ETriggeredEvent::)
 	}
 	else
 	{
