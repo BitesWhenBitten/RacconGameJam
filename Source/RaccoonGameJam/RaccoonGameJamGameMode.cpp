@@ -87,6 +87,7 @@ void ARaccoonGameJamGameMode::CharacterCaught()
 
 }
 
+
 void ARaccoonGameJamGameMode::BuildGameMode()
 {
 	//start a timer, use variable later to be assigned from Level BPs
