@@ -87,6 +87,26 @@ void ARaccoonGameJamGameMode::CharacterCaught()
 
 }
 
+void ARaccoonGameJamGameMode::PauseGame()
+{
+	if (GetWorldTimerManager().IsTimerActive(TimerDelegateHandle))
+	{
+		GetWorldTimerManager().PauseTimer(TimerDelegateHandle);
+	}
+
+	//TODO call callback to broadcast game pause to enemies
+}
+
+void ARaccoonGameJamGameMode::UnPauseGame()
+{
+	if (!GetWorldTimerManager().IsTimerActive(TimerDelegateHandle))
+	{
+		GetWorldTimerManager().UnPauseTimer(TimerDelegateHandle);
+	}
+
+	//TODO call callback to broadcast game unpaused to enemies
+}
+
 void ARaccoonGameJamGameMode::BuildGameMode()
 {
 	//start a timer, use variable later to be assigned from Level BPs
