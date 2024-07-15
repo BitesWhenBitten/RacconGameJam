@@ -58,8 +58,4 @@ private:
 	void GameWon();
 	void GameLost();
 
-	void SetInputToPaused();
-	void SetInputToInPlay();
-
-
 };

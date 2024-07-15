@@ -9,8 +9,8 @@
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "Internationalization/Text.h"
-#include "Kismet/GameplayStatics.h"
-#include "GameFramework/PlayerInput.h"
+#include "UIFunctionLibrary.h"
+
 
 
 
@@ -22,7 +22,6 @@ void ULevelUI::Setup()
 	GameMode = Cast<ARaccoonGameJamGameMode>(GetWorld()->GetAuthGameMode());
 	GameMode->OnGameOver.BindUObject(this, &ThisClass::GameOver);
 }
-
 
 void ULevelUI::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
@@ -47,58 +46,18 @@ bool ULevelUI::Initialize()
 	{
 		QuitButton->OnClicked.AddDynamic(this, &ThisClass::QuitGameButtonClicked);
 	}
-
-
 	return true;
-}
-
-void ULevelUI::SetInputToPaused()
-{
-	UWorld* World = GetWorld();
-	if (World)
-	{
-		APlayerController* PlayerController = World->GetFirstPlayerController();
-		if (PlayerController)
-		{
-
-			PlayerController->PlayerInput->FlushPressedKeys();
-			FInputModeUIOnly InputModeUI;
-			InputModeUI.SetWidgetToFocus(TakeWidget());
-			InputModeUI.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-			PlayerController->SetInputMode(InputModeUI);
-			PlayerController->SetShowMouseCursor(true);
-		}
-	}
-}
-
-void ULevelUI::SetInputToInPlay()
-{
-	UWorld* World = GetWorld();
-	if (World)
-	{
-		APlayerController* PlayerController = World->GetFirstPlayerController();
-		if (PlayerController)
-		{
-			FInputModeGameOnly InputModeGame;
-			PlayerController->SetInputMode(InputModeGame);
-			PlayerController->SetShowMouseCursor(false);
-		}
-	}
 }
 
 void ULevelUI::RetryLevelButtonClicked()
 {
-	SetInputToInPlay();
-
-	FString Level = UGameplayStatics::GetCurrentLevelName(this);
-	UGameplayStatics::OpenLevel(this, FName(Level));
-
+	UUIFunctionLibrary::SetInputToInPlay(this);
+	UUIFunctionLibrary::ReloadCurrentLevel(this);
 }
 
 void ULevelUI::QuitGameButtonClicked()
 {
-	UKismetSystemLibrary::QuitGame(this, GetWorld()->GetFirstPlayerController(), EQuitPreference::Quit, false);
-
+	UUIFunctionLibrary::QuitGame(this);
 }
 
 void ULevelUI::TurnOnButtons()
@@ -121,7 +80,7 @@ void ULevelUI::GameOver(bool bGameWon)
 
 	GameMode->OnGameOver.Unbind();
 
-	SetInputToPaused();
+	UUIFunctionLibrary::SetInputToPaused(this);
 	TurnOnButtons();
 
 	if (bGameWon)
