@@ -95,7 +95,11 @@ void ARaccoonGameJamCharacter::SetupPlayerInputComponent(UInputComponent* Player
 		// Pickup items
 		EnhancedInputComponent->BindAction(PickupItemAction, ETriggerEvent::Started, this, &ARaccoonGameJamCharacter::PickupItem);
 
-		//Pause Menu configure in Blueprints
+		//Pause Menu configured in Blueprints
+
+		//Crouch configured in Blueprints
+
+		//Sprint configured in Blueprints
 	}
 	else
 	{
