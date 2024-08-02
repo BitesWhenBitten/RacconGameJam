@@ -35,6 +35,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CharacterCaught();
 
+
+
 private:
 
 	void BuildGameMode();
